@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h3>Password Validation</h3>
+    <script>
+        function solution(s) {
+            const isDigit = (str) => str.toLowerCase() == str.toUpperCase();
+            const isUpper = (str) => str != str.toLowerCase();
+            if (!isUpper(s)) {
+                return -1;
+            }
+            let max = 0;
+            l1: for (let i = 0; i < s.length; i++) {
+                let valid = false;
+                l2: for (let j = i + 1; j <= s.length; j++) {
+                    const symbol = s[j - 1];
+                    if (isDigit(symbol)) {
+                        i = j - 1;
+                        break;
+                    }
+                    if (isUpper(symbol)) {
+                        valid = true;
+                    }
+                    if (valid) {
+                        max = Math.max(max, j - i);
+                    }
+                    if (j == s.length) {
+                        break l1;
+                    }
+                }
+            }
+            return max || -1;
+        }
+        console.log(solution('a0B'));
+        console.log(solution('BaCb'));
+        console.log(solution('B'));
+        console.log(solution('a0Ba'));
+        console.log(solution('7'));
+        console.log(solution('f'));
+    </script>
+</body>
+
+</html>
